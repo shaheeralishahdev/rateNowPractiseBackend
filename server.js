@@ -65,7 +65,7 @@ app.get('/profile', (req, res) => {
     }
 });
 app.get('/profile/view', (req, res) => {
-    const token = req.cookies.token;
+    const token = req.cookies.token || req.headers['authorization']?.split(' ')[1];
     console.log("profile view api call", token);
     if(!token) return res.status(401).json({ message: 'No token' });
 
