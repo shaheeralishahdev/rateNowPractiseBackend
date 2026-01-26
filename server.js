@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const SECRET_KEY = 'mysecretkey';
 
 app.use(bodyParser.json());
@@ -13,9 +13,10 @@ app.use(cookieParser());
 
 // Allow requests from React frontend
 app.use(cors({
-    origin: "*",
-    credentials: true // important for cookies
+  origin: true,
+  credentials: true
 }));
+
 
 // Dummy login API
 app.post('/login', (req, res) => {
