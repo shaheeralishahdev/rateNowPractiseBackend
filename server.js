@@ -52,9 +52,8 @@ app.get('/home', (req, res) => {
 
 // Another protected API
 app.get('/profile', (req, res) => {
-    console.log("profile api call");
-    
     const token = req.cookies.token;
+    console.log("profile api call", token);
     if(!token) return res.status(401).json({ message: 'No token' });
 
     try {
