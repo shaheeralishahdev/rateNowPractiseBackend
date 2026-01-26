@@ -17,7 +17,6 @@ app.use(cors({
   credentials: true
 }));
 
-
 // Dummy login API
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
@@ -28,9 +27,9 @@ app.post('/login', (req, res) => {
 
         // Set cookie
         res.cookie('token', token, {
-            httpOnly: true, 
-            secure: false, // true if using https
-            sameSite: 'lax'
+            httpOnly: true,
+            secure: true,        // REQUIRED for HTTPS
+            sameSite: 'none'     // REQUIRED for cross-site cookies
         });
 
         return res.json({ message: 'Login successful',token });
