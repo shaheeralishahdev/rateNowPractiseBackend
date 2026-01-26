@@ -20,11 +20,11 @@ app.use(cors({
 // Dummy login API
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
-    console.log("login api call", email, password );
+
     // Simple validation
     if(email === 'test@test.com' && password === '123456') {
         const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
-
+    console.log("login api call email, password, token", email, password, token);
         // Set cookie
         res.cookie('token', token, {
             httpOnly: true,
