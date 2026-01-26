@@ -65,5 +65,16 @@ app.get('/profile', (req, res) => {
         return res.status(401).json({ message: 'Invalid token' });
     }
 });
+app.get('/profile/view', (req, res) => {
+    console.log("profile api call");
+    const token = req.cookies.token;
+    if(!token) return res.status(401).json({ message: 'No token' });
 
+    try {
+        const decoded = jwt.verify(token, SECRET_KEY);
+        return res.send(`<h1>Welcome User!</h1><p>Your token: ${token}</p> <p>Profile: ${decoded.email}</p>`);
+    } catch(err) {
+        return res.status(401).json({ message: 'Invalid token' });
+    }
+});
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
