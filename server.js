@@ -24,7 +24,7 @@ app.post('/login', (req, res) => {
     // Simple validation
     if(email === 'test@test.com' && password === '123456') {
         const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
-        const refreshToken = jwt.sign({ email }, REFRESH_SECRET, { expiresIn: '7d' });
+        const refreshToken = jwt.sign({ email }, SECRET_KEY, { expiresIn: '7d' });
         // Set cookie
         res.cookie('token', token, {
             httpOnly: true,
