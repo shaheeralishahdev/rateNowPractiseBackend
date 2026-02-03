@@ -33,7 +33,7 @@ app.post('/login', (req, res) => {
         });
         if(redirectUri) {
             // Redirect to mobile deep link
-            return res.redirect(`${redirectUri}?token=${token}&refreshToken=${refreshToken}`);
+            return res.redirect(`${redirectUri}?accessToken=${token}&refreshToken=${refreshToken}`);
           }
         return res.json({ message: 'Login successful',token,refreshToken });
     }
