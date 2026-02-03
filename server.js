@@ -35,7 +35,7 @@ app.post('/login', (req, res) => {
             // Redirect to mobile deep link
             return res.redirect(`${redirectUri}?token=${token}&refreshToken=${refreshToken}`);
           }
-        return res.json({ message: 'Login successful',token });
+        return res.json({ message: 'Login successful',token,refreshToken });
     }
     res.status(401).json({ message: 'Invalid credentials' });
 });
