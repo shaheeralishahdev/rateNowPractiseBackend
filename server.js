@@ -19,19 +19,22 @@ app.use(cors({
 
 // Dummy login API
 app.post('/login', (req, res) => {
-    const { email, password } = req.body;
+    const { email, password ,redirectUri} = req.body;
 
     // Simple validation
     if(email === 'test@test.com' && password === '123456') {
         const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
-    console.log("login api call email, password, token", email, password, token);
+        const refreshToken = jwt.sign({ email }, REFRESH_SECRET, { expiresIn: '7d' });
         // Set cookie
         res.cookie('token', token, {
             httpOnly: true,
             secure: true,        // REQUIRED for HTTPS
             sameSite: 'none'     // REQUIRED for cross-site cookies
         });
-
+        if(redirectUri) {
+            // Redirect to mobile deep link
+            return res.redirect(`${redirectUri}?token=${token}&refreshToken=${refreshToken}`);
+          }
         return res.json({ message: 'Login successful',token });
     }
     res.status(401).json({ message: 'Invalid credentials' });
